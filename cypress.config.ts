@@ -10,6 +10,8 @@ module.exports = defineConfig({
       // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
       await addCucumberPreprocessorPlugin(on, config);
 
+      require('@cypress/code-coverage/task')(on, config);
+
       on(
         "file:preprocessor",
         createBundler({
