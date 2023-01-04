@@ -34,6 +34,13 @@ Then(
   }
 );
 
+Then(
+  "I do not see {string} element that contains text {string}",
+  (elementSelector: string, text: string) => {
+    cy.get(elementSelector).contains(text).should("not.exist");
+  }
+);
+
 When("I click on it", () => {
   cy.get("@currentElement").click();
 });
@@ -44,4 +51,8 @@ When("I focus on it and type {string}", (value: string) => {
 });
 When("I press 'Enter' on keyboard", () => {
   cy.get("@currentElement").type("{enter}");
+});
+
+Then("I am redirected to {string} page", (path: string) => {
+  cy.url().should("include", path);
 });
