@@ -30,9 +30,26 @@ Then(
       .contains(text)
       .first()
       .as("currentElement")
+      .as("mainElement")
       .should("be.visible");
   }
 );
+
+Then("I see a related {string} element", (elementSelector: string) => {
+  cy.get("@mainElement")
+    .invoke("attr", "data-entityid")
+    .then((entityId) => {
+      cy.get(
+        `[data-testid=${elementSelector.replace(
+          "{entityid}",
+          entityId as string
+        )}]`
+      )
+        .first()
+        .as("currentElement")
+        .should("be.visible");
+    });
+});
 
 Then(
   "I do not see {string} element that contains text {string}",
